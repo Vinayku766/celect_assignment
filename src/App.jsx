@@ -1,20 +1,24 @@
-import axios from "axios";
 import {useEffect, useState} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getDatafromApi } from "./store/cardSlice";
+import { fetchDataFromApi } from "./utils/api";
 import Card from "./components/Card";
 
 function App() {
-  const [urlData, setUrlData] = useState(null)
+  // const [urlData, setUrlData] = useState(null)
   const [input, setInput] = useState("");
-  const [inputValue, setInputValue] = useState("apple");
+  const [query, setQuery] = useState("apple");
+  const urlData = useSelector((state) => state.card.data)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchData();
-  }, [inputValue])
+  }, [query])
 
   const fetchData = async () => {
     try {
-      const data = await axios.get(`https://pixabay.com/api/?key=33083899-1dcf775f0e9ace6580c8b41e1&q=${inputValue}&image_type=photo&pretty=true`);
-      setUrlData(data.data);
+      const data = await fetchDataFromApi(query);
+      dispatch(getDatafromApi(data?.hits));
     } catch (error) {
       console.log(error);
     }
@@ -22,8 +26,7 @@ function App() {
 
   const handleSubmit = function(e){
     e.preventDefault();
-    setInputValue(input);
-    setIsSubmit(true);
+    setQuery(input);
   }
 
   return (
@@ -34,8 +37,8 @@ function App() {
         <button className="ml-[20px] py-[6px] px-[16px] text-[#fff] border-none bg-[green] rounded-[10px] hover:bg-[#04db04]" type="submit">Search</button>
         </div>
       </form>
-        {!urlData?.hits ? <div>Not Found!</div>: <div className="my-[40px] flex flex-row flex-wrap justify-center gap-8">
-        {urlData?.hits?.map((data) => {
+        {!urlData ? <div className="text-center font-semibold text-[24px] mt-[40px]">Not Found...</div>: <div className="my-[40px] flex flex-row flex-wrap justify-center gap-8">
+        {urlData?.map((data) => {
           return <Card cardData={data} key={data.id}/>
         })}
         </div>}

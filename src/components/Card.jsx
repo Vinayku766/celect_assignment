@@ -8,7 +8,7 @@ const Card = ({cardData}) => {
   return (
      <div className="border-none rounded-[7px] shadow-lg shadow-[purple] w-[250px]"> 
       <img className="h-[120px] w-full rounded-[7px]" src={cardData.largeImageURL} alt="card-img"/>
-      <div className="py-[12px] px-[8px] text-left">
+      <div className="py-[12px] px-[8px] text-left font-semibold">
         <p>Views : {cardData.likes}</p>
         <p>Downloads : {cardData.downloads}</p>
         <p>Likes : {cardData.views}</p>
