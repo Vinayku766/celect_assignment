@@ -6,7 +6,7 @@ const Card = ({cardData}) => {
   const tags = cardData.tags.split(", ");
   // console.log((tags));
   return (
-     <div className="border-none rounded-[7px] shadow-lg shadow-[green] w-[250px]"> 
+     <div className="border-none rounded-[7px] shadow-lg shadow-[purple] w-[250px]"> 
       <img className="h-[120px] w-full rounded-[7px]" src={cardData.largeImageURL} alt="card-img"/>
       <div className="py-[12px] px-[8px] text-left">
         <p>Views : {cardData.likes}</p>
@@ -14,14 +14,9 @@ const Card = ({cardData}) => {
         <p>Likes : {cardData.views}</p>
       </div>
       <div className="py-[12px] px-[9px] text-left">
-       
        {tags.map((tag, id) => {
-        return <span key={id} className={`bg-[green] mx-[4px] text-white py-[2px] px-[4px] rounded-[4px]`}>#{tag} </span>
+        return <span key={id} className={`bg-[purple] mx-[4px] text-white py-[2px] px-[4px] rounded-[4px]`}>#{tag} </span>
        })}
-       {/* {cardData.cardData.tags.map((tag, id) => {
-        return <span key={id}>#{tag}</span>
-       })} */}
-      
       </div>
      </div>
   )
